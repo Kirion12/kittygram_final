@@ -1,4 +1,4 @@
-name: Main Taski workflow
+name: Main Kittygram workflow
 
 on:
   push:
@@ -60,7 +60,7 @@ jobs:
         with:
           context: ./backend/
           push: true
-          tags: kovdmit/kittygram_backend:latest
+          tags: kirionnight/kittygram_backend:latest
 
   frontend_tests:
     runs-on: ubuntu-latest
@@ -100,7 +100,7 @@ jobs:
         with:
           context: ./frontend/
           push: true
-          tags: kovdmit/kittygram_frontend:latest
+          tags: kirionnight/kittygram_frontend:latest
   build_gateway_and_push_to_docker_hub:
     name: Push gateway Docker image to DockerHub
     runs-on: ubuntu-latest
@@ -119,7 +119,7 @@ jobs:
         with:
           context: ./nginx/
           push: true
-          tags: kovdmit/kittygram_gateway:latest
+          tags: kirionnight/kittygram_gateway:latest
   deploy:
     runs-on: ubuntu-latest
     needs:
@@ -153,13 +153,3 @@ jobs:
           sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
           sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
           sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /static/static/
-  send_message:
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-    - name: Send message
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Деплой успешно выполнен!
