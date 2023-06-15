@@ -8,7 +8,7 @@ https://kittygramsd.myftp.org/
 Интерактивный сайт с личным кабинетом с возможностями публикации фотографий котов.
 
 ### Технологии
-Python 3.11,
+Python 3.11
 Django 4.1,
 Django REST framework, 
 React
